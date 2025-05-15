@@ -71,10 +71,9 @@ def on_click(number):
     comments = post.get_comments()
 
     winners = []
-    doubles = []
 
     while len(winners) != number:
-        winner = random.randint(0,len(comments)-1)
+        winner = comments[random.randint(0,len(comments)-1)]
         if winner not in winners:
             winners.append(winner)
             
