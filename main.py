@@ -3,7 +3,6 @@ import os
 import time
 import tkinter as tk
 from tkinter import ttk
-from PIL import Image, ImageTk
 from glob import glob
 from os.path import expanduser
 from platform import system
@@ -12,12 +11,7 @@ from argparse import ArgumentParser
 from instaloader import ConnectionException, Instaloader, Post
 import instaloader
 import subprocess
-import time
-import sys
 import json
-import random
-import requests
-from io import BytesIO
 
 
 
@@ -27,8 +21,18 @@ def create_window():
     global root 
     root = tk.Tk()
     root.title("Random Comment(s)")
-    root.geometry("1000x800")
+
+    width, height = 1000, 800
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x = (screen_width - width) // 2
+    y = (screen_height - height) // 2
+
+    root.geometry(f'{width}x{height}+{x}+{y}')
     root.configure(bg="#f0f0f0")
+
+
+    guide_window()
 
     root.grid_rowconfigure(0, weight=1)
     root.grid_columnconfigure(0, weight=1)
@@ -101,6 +105,45 @@ def create_window():
     content_frame.grid_columnconfigure(1, weight=1)
 
     root.mainloop()
+
+## GUIDE WINDOW
+def guide_window():
+    splash = tk.Toplevel(root)
+    splash.title("Welcome")
+    splash.configure(bg="#f0f0f0")
+    splash.transient(root)       
+    splash.attributes("-topmost", True)  
+    splash.grab_set()            
+    splash.focus_force() 
+
+    splash.pack_propagate(False)
+
+    width, height = 1000, 800
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x = (screen_width - width) // 2
+    y = (screen_height - height) // 2
+
+    splash.geometry(f'{width}x{height}+{x}+{y}')
+
+    splash.update()
+
+    guide=f'Before starting make sure to: \n\n1. Open Firefox browser \n\n2. Make sure cookies are turned on (Settings > Cookies) \n\n3. Log in to Instagram \n\n\tClick "OK" to proceed.' 
+
+    message = tk.Label(splash, text=guide,
+                       font=("Helvetica", 14), fg="#333333", bg="#f0f0f0", wraplength=380, justify="left")
+    message.pack(pady=30)
+
+    ok_button = tk.Button(splash, text="OK", font=("Helvetica", 12, "bold"), bg="#4CAF50", fg="#ffffff",
+                          command=splash.destroy, padx=20, pady=10)
+    ok_button.pack(pady=10)
+
+    splash.update_idletasks()
+
+    height = message.winfo_reqheight() + ok_button.winfo_reqheight() + 80;
+    splash.geometry(f'600x{height}')
+
+    root.wait_window(splash)
 
 
 def on_click(link, number_comments, result):
