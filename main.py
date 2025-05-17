@@ -217,7 +217,9 @@ def get_comments(shortcode, _NUMBER_COMMENTS):
                 break
     else:
         print('No comments file found.')
-        exit(1)
+        error_frame = tk.Frame(winner_frame, bg=box_bg, bd=2, relief="groove", padx=20, pady=10)
+        error_frame.grid(row=idx, column=0, padx=10, pady=5, sticky="ew")
+        return
 
     comments_file = os.path.join(target_dir,'comments.json')
 
@@ -282,7 +284,7 @@ def generate_output(result_box):
 
     # Establish session, get cookie data
     # Command needs: username, shortcode
-    command = f'python3 -m instaloader --comments -l {username} --sessionfile=session_file -- -{shortcode}'
+    command = f'python -m instaloader --comments -l {username} --sessionfile=session_file -- -{shortcode}'
     result = subprocess.run(command, shell=True,capture_output=True, text=True)
 
     with open('test.txt','w') as file:
@@ -301,8 +303,6 @@ def generate_output(result_box):
     get_comments(f'-{shortcode}', _NUMBER_COMMENTS)
 
     root.update()
-
-
 
 if __name__ == "__main__":
 
