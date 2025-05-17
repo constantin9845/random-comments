@@ -1,7 +1,10 @@
-# random-comments
+# Random Comment Picker
 
+## Guide
+- Pick random Instagram comments
+- Works for giveaways, contests, and similar
+- Requires Instagram account and Firefox browser (login happens through cookies)
 
-## Remarks
-- Update logic, check is session already established
-- reuse existing comments data
-- python builder
+## Note
+- Mac has UI issues
+- Windows: download executable or build own
