@@ -282,7 +282,7 @@ def generate_output(result_box):
 
     # Establish session, get cookie data
     # Command needs: username, shortcode
-    command = f'python -m instaloader --comments -l {username} --sessionfile=session_file -- -{shortcode}'
+    command = f'python3 -m instaloader --comments -l {username} --sessionfile=session_file -- -{shortcode}'
     result = subprocess.run(command, shell=True,capture_output=True, text=True)
 
     with open('test.txt','w') as file:
